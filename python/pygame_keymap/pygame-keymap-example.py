@@ -14,24 +14,18 @@ vel = 5
 
 run = True
 
-class key_map():
-    
-    def Left():
-        if pygame.key.get_pressed()[pygame.K_LEFT] or pygame.key.get_pressed()[pygame.K_a]:
-            return True
-
-    def Right():
-        if pygame.key.get_pressed()[pygame.K_RIGHT] or pygame.key.get_pressed()[pygame.K_d]:
-            return True
-
-    def Up():
-        if pygame.key.get_pressed()[pygame.K_UP] or pygame.key.get_pressed()[pygame.K_w]:
-            return True
-
-    def Down():
-        if pygame.key.get_pressed()[pygame.K_DOWN] or pygame.key.get_pressed()[pygame.K_s]:
-            return True
-
+class KeyMap():
+    def __init__(self):
+        self.keys = pygame.key.get_pressed()
+    def Left(self):
+        return self.keys[pygame.K_LEFT] or self.keys[pygame.K_a]
+    def Right(self):
+        return self.keys[pygame.K_RIGHT] or self.keys[pygame.K_d]
+    def Down(self):
+        return self.keys[pygame.K_DOWN] or self.keys[pygame.K_s]
+    def Up(self):
+        return self.keys[pygame.K_UP] or self.keys[pygame.K_w]
+#thanks to Rabbid76 from stack overflow for helping me clearing a bug
 
 while run:
     pygame.time.delay(100)
@@ -40,15 +34,15 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    if key_map().Left():
+    if KeyMap().Left():
         x -= vel
 
-    if key_map().Right():
+    if KeyMap().Right():
         x += vel
 
-    if key_map().Up():
+    if KeyMap().Up():
         y -= vel
-    if key_map().Down():
+    if KeyMap().Down():
         y += vel
 
     win.fill((0, 0, 0))  # Fills the screen with black
