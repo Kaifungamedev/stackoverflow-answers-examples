@@ -3,9 +3,10 @@ pygame.init()
 
 screen_width = 800
 screen_height = 600
-
 win = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("key map test")
+clock = pygame.time.Clock()
+FPS = 60
 x = screen_width / 2
 y = screen_height / 2
 width = 40
@@ -28,7 +29,7 @@ class KeyMap():
 #thanks to Rabbid76 from stack overflow for helping me clearing a bug
 
 while run:
-    pygame.time.delay(100)
+    clock.tick(FPS)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
