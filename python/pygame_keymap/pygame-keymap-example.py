@@ -1,53 +1,37 @@
 import pygame
+
 pygame.init()
-
-screen_width = 800
-screen_height = 600
-win = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("key map test")
+win = pygame.display.set_mode((800, 600))
 clock = pygame.time.Clock()
-FPS = 60
-x = screen_width / 2
-y = screen_height / 2
-width = 40
-height = 60
+rect = pygame.Rect(0, 0, 40, 60)
+rect.center = win.get_rect().center
 vel = 5
-
-run = True
 
 class KeyMap():
     def __init__(self):
         self.keys = pygame.key.get_pressed()
-    def Left(self):
+    def left(self):
         return self.keys[pygame.K_LEFT] or self.keys[pygame.K_a]
-    def Right(self):
+    def right(self):
         return self.keys[pygame.K_RIGHT] or self.keys[pygame.K_d]
-    def Down(self):
+    def down(self):
         return self.keys[pygame.K_DOWN] or self.keys[pygame.K_s]
-    def Up(self):
+    def up(self):
         return self.keys[pygame.K_UP] or self.keys[pygame.K_w]
-#thanks to Rabbid76 from stack overflow for helping me clearing a bug
 
+run = True
 while run:
-    clock.tick(FPS)
-
+    clock.tick(20)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
-    if KeyMap().Left():
-        x -= vel
+    key_map = KeyMap()
+    rect.x += (key_map.right() - key_map.left()) * vel
+    rect.y += (key_map.down() - key_map.up()) * vel
 
-    if KeyMap().Right():
-        x += vel
-
-    if KeyMap().Up():
-        y -= vel
-    if KeyMap().Down():
-        y += vel
-
-    win.fill((0, 0, 0))  # Fills the screen with black
-    pygame.draw.rect(win, (255, 0, 0), (x, y, width, height))
+    win.fill((0, 0, 0)) 
+    pygame.draw.rect(win, (255, 0, 0), rect)
     pygame.display.update()
 
 pygame.quit()
